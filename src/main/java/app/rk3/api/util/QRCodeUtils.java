@@ -1,5 +1,6 @@
 package app.rk3.api.util;
 
+import app.rk3.api.exception.InternalServerErrorException;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
@@ -21,17 +22,15 @@ public class QRCodeUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(QRCodeUtils.class);
     private static final String CHARTSET = "utf-8";
 
-    public Result decode(String filePath) {
+    public static Result decode(File file) {
         try {
-            File file = new File(filePath);
             BufferedImage bufferedImage = ImageIO.read(file);
             BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(bufferedImage)));
             Map<DecodeHintType, Object> hints = new HashMap<>();
             hints.put(DecodeHintType.CHARACTER_SET, CHARTSET);
             return new MultiFormatReader().decode(bitmap, hints);
         } catch (NotFoundException | IOException e) {
-            LOGGER.error("", e);
-            return null;
+            throw new InternalServerErrorException(e);
         }
     }
 
