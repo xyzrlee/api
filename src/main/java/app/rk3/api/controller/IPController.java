@@ -11,7 +11,7 @@ import java.util.Map;
 @RestController
 public class IPController {
 
-    @RequestMapping(value = "/ip", method = RequestMethod.GET)
+    @RequestMapping(path = "/ip", method = RequestMethod.GET)
     public Map getRequestIp(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
