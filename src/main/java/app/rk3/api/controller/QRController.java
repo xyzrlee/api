@@ -37,6 +37,7 @@ public class QRController {
         throw new UnsupportedOperationException(String.format("unsupported operation: m=%s", m));
     }
 
+    @PostMapping("/qr/decode")
     private Map decode(HttpServletRequest request) {
         if (!(request instanceof MultipartRequest))
             throw new UnsupportedOperationException();
