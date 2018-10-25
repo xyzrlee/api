@@ -1,13 +1,13 @@
 package app.rk3.api.controller;
 
 import app.rk3.api.exception.BadRequestException;
+import app.rk3.api.exception.InternalServerErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,17 +37,17 @@ public class URLController {
         HttpClientContext httpClientContext = HttpClientContext.create();
         HttpGet httpGet = new HttpGet();
         httpGet.setURI(URI.create(shortenedUrl));
+        String url = "";
         try {
             HttpResponse httpResponse = httpClient.execute(httpGet, httpClientContext);
+            List<URI> redirectList = httpClientContext.getRedirectLocations();
+            if (redirectList.size() > 0)
+                url = redirectList.get(redirectList.size() - 1).toString();
+            else
+                url = shortenedUrl;
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new InternalServerErrorException();
         }
-        List<URI> redirectList = httpClientContext.getRedirectLocations();
-        String url = "";
-        if (redirectList.size() > 0)
-            url = redirectList.get(redirectList.size() - 1).toString();
-        else
-            url = shortenedUrl;
         resultMap.put("url", url);
         return resultMap;
     }
