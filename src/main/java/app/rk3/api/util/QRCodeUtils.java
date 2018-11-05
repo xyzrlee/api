@@ -4,8 +4,6 @@ import app.rk3.api.exception.InternalServerErrorException;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -19,7 +17,6 @@ public class QRCodeUtils {
     private QRCodeUtils() {
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(QRCodeUtils.class);
     private static final String CHARTSET = "utf-8";
 
     public static Result decode(File file) {

@@ -1,31 +1,36 @@
 package app.rk3.api.controller;
 
+import app.rk3.api.struct.io.ip.IPResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.ZonedDateTime;
 
 @RestController
 public class IPController {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @RequestMapping(path = "/ip", method = RequestMethod.GET)
-    public Map getRequestIp(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
+    public IPResponse getRequestIp(HttpServletRequest httpServletRequest) {
+        String ip = httpServletRequest.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
+            ip = httpServletRequest.getHeader("Proxy-Client-IP");
         }
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
+            ip = httpServletRequest.getHeader("WL-Proxy-Client-IP");
         }
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
+            ip = httpServletRequest.getRemoteAddr();
         }
-        Map<String, Object> responseMap = new HashMap<>();
-        responseMap.put("ip", ip);
-        return responseMap;
+        IPResponse ipResponse = new IPResponse();
+        ipResponse.setIp(ip);
+        ipResponse.setTime(ZonedDateTime.now());
+        return ipResponse;
     }
 
 }

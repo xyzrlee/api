@@ -2,8 +2,9 @@ package app.rk3.api.controller;
 
 import app.rk3.api.exception.BadRequestException;
 import app.rk3.api.exception.InternalServerErrorException;
+import app.rk3.api.struct.io.url.URLExpandRequest;
+import app.rk3.api.struct.io.url.URLExpandResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.HttpClientContext;
@@ -16,9 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URI;
-import java.util.HashMap;
+import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class URLController {
@@ -26,11 +26,10 @@ public class URLController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping(path = "/url/expand")
-    public Map expand(HttpServletRequest request) {
-        String shortenedUrl = request.getParameter("url");
+    public URLExpandResponse expand(URLExpandRequest urlExpandRequest, HttpServletRequest request) {
+        String shortenedUrl = urlExpandRequest.getUrl();
         if (StringUtils.isBlank(shortenedUrl))
             throw new BadRequestException("[url] is expected.");
-        Map<String, Object> resultMap = new HashMap<>();
         if (!shortenedUrl.matches("^http[s]?://.*"))
             shortenedUrl = "http://" + shortenedUrl;
         HttpClient httpClient = HttpClientBuilder.create().build();
@@ -39,7 +38,7 @@ public class URLController {
         httpGet.setURI(URI.create(shortenedUrl));
         String url = "";
         try {
-            HttpResponse httpResponse = httpClient.execute(httpGet, httpClientContext);
+            httpClient.execute(httpGet, httpClientContext);
             List<URI> redirectList = httpClientContext.getRedirectLocations();
             if (redirectList.size() > 0)
                 url = redirectList.get(redirectList.size() - 1).toString();
@@ -48,8 +47,10 @@ public class URLController {
         } catch (IOException e) {
             throw new InternalServerErrorException();
         }
-        resultMap.put("url", url);
-        return resultMap;
+        URLExpandResponse urlExpandResponse = new URLExpandResponse();
+        urlExpandResponse.setUrl(url);
+        urlExpandResponse.setTime(ZonedDateTime.now());
+        return urlExpandResponse;
     }
 
 }
