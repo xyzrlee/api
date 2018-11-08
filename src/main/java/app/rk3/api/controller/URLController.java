@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URI;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class URLController {
         }
         URLExpandResponse urlExpandResponse = new URLExpandResponse();
         urlExpandResponse.setUrl(url);
-        urlExpandResponse.setTime(ZonedDateTime.now());
+        urlExpandResponse.setTime(ZonedDateTime.now(ZoneId.of("UTC")));
         return urlExpandResponse;
     }
 

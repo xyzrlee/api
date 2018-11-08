@@ -1,12 +1,16 @@
 package app.rk3.api.util;
 
 import app.rk3.api.exception.InternalServerErrorException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 
 public class FileUtils {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
 
     private FileUtils() {
     }
@@ -19,6 +23,7 @@ public class FileUtils {
         try {
             return File.createTempFile(prefix, suffix, directory);
         } catch (IOException e) {
+            LOGGER.error("", e);
             throw new InternalServerErrorException();
         }
     }
@@ -28,6 +33,7 @@ public class FileUtils {
         try {
             multipartFile.transferTo(file);
         } catch (IOException e) {
+            LOGGER.error("", e);
             throw new InternalServerErrorException();
         }
         return file;

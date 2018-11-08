@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @RestController
@@ -32,7 +33,7 @@ public class QRController {
         file.delete();
         QRDecodeResponse qrDecodeResponse = new QRDecodeResponse();
         qrDecodeResponse.setText(result.getText());
-        qrDecodeResponse.setTime(ZonedDateTime.now());
+        qrDecodeResponse.setTime(ZonedDateTime.now(ZoneId.of("UTC")));
         return qrDecodeResponse;
     }
 

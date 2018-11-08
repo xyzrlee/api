@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @RestController
@@ -29,7 +30,7 @@ public class IPController {
         }
         IPResponse ipResponse = new IPResponse();
         ipResponse.setIp(ip);
-        ipResponse.setTime(ZonedDateTime.now());
+        ipResponse.setTime(ZonedDateTime.now(ZoneId.of("UTC")));
         return ipResponse;
     }
 
