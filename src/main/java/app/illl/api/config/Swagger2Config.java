@@ -27,7 +27,6 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("API")
-                .version("0.1.0-SNAPSHOT")
                 .build();
     }
 
