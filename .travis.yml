@@ -2,6 +2,9 @@ dist: trusty
 
 language: java
 
+jdk:
+- oraclejdk8
+
 addons:
   sonarcloud:
     organization: "$SONAR_ORGANIZATION"
@@ -9,7 +12,7 @@ addons:
       secure: "$SONAR_TOKEN"
 
 script:
-- mvn install -Dmaven.test.skip=true
+- ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
 cache:
