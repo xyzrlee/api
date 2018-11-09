@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-public class Generate204Controller {
+public class Generate204 {
 
     @GetMapping(path = "/generate_204")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)

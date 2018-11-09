@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-public class IPController {
+public class IP {
 
     private static final String IP_UNKNOWN = "unknown";
 

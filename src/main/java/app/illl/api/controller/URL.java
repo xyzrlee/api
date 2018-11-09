@@ -17,7 +17,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-public class URLController {
+public class URL {
 
     @PostMapping(path = "/url/expand")
     public URLExpandResponse expand(URLExpandRequest urlExpandRequest) {

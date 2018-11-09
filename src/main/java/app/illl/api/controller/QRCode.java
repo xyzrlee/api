@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 
 @RestController
-public class QRController {
+public class QRCode {
 
     private static final String TEMP_FILE_PREFIX = "api-qr-";
     private static final String TEMP_FILE_SUFFIX = "";

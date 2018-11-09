@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-public class ROOTController {
+public class ROOT {
 
     @GetMapping(path = "/")
     @ResponseStatus(code = HttpStatus.TEMPORARY_REDIRECT)

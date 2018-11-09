@@ -14,7 +14,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @ControllerAdvice
-public class ApiResponseBodyAdvice implements ResponseBodyAdvice<ApiResponse> {
+public class ApiResponseAdvice implements ResponseBodyAdvice<ApiResponse> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
