@@ -1,20 +1,16 @@
 package app.illl.api.controller;
 
 import app.illl.api.struct.io.ip.IPResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Api(value = "IP", description = "获得公网IP")
 @RestController
 public class IPController {
 
     private static final String IP_UNKNOWN = "unknown";
 
-    @ApiOperation(value = "获取请求IP")
     @GetMapping(path = "/ip")
     public IPResponse getRequestIp(HttpServletRequest httpServletRequest) {
         String ip = httpServletRequest.getHeader("x-forwarded-for");

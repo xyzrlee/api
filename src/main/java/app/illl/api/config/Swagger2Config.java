@@ -21,7 +21,8 @@ public class Swagger2Config {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("app.illl.api"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .useDefaultResponseMessages(false);
     }
 
     private ApiInfo apiInfo() {
