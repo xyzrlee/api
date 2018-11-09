@@ -21,7 +21,7 @@ public class QRCode {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @PostMapping("/qr/decode")
+    @PostMapping("/qrcode/decode")
     private QRDecodeResponse decode(QRDecodeRequest qrDecodeRequest) {
         logger.info("{}", qrDecodeRequest);
         MultipartFile multipartFile = qrDecodeRequest.getFile();
