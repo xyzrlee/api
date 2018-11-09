@@ -13,6 +13,7 @@ public class Generate204 {
     @GetMapping(path = "/generate_204")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void generate204(HttpServletResponse response) {
+        // 204 NO CONTENT
     }
 
 }
