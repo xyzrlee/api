@@ -6,11 +6,11 @@ public abstract class AbstractApiResponse {
 
     private ZonedDateTime _time;
 
-    public ZonedDateTime get_time() {
+    public final ZonedDateTime get_time() {
         return _time;
     }
 
-    public void set_time(ZonedDateTime _time) {
+    public final void set_time(ZonedDateTime _time) {
         this._time = _time;
     }
 
