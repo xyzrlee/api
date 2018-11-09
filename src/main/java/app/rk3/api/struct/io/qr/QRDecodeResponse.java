@@ -1,10 +1,13 @@
 package app.rk3.api.struct.io.qr;
 
+import app.rk3.api.struct.io.AbstractApiResponse;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.time.ZonedDateTime;
 
-public class QRDecodeResponse {
+public class QRDecodeResponse extends AbstractApiResponse {
     private String text;
-    private ZonedDateTime time;
 
     public String getText() {
         return text;
@@ -14,19 +17,8 @@ public class QRDecodeResponse {
         this.text = text;
     }
 
-    public ZonedDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(ZonedDateTime time) {
-        this.time = time;
-    }
-
     @Override
     public String toString() {
-        return "QRDecodeResponse{" +
-                "text='" + text + '\'' +
-                ", time=" + time +
-                '}';
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.DEFAULT_STYLE);
     }
 }

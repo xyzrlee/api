@@ -1,11 +1,12 @@
 package app.rk3.api.struct.io.ip;
 
-import java.time.ZonedDateTime;
+import app.rk3.api.struct.io.AbstractApiResponse;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class IPResponse {
+public class IPResponse extends AbstractApiResponse {
 
     private String ip;
-    private ZonedDateTime time;
 
     public String getIp() {
         return ip;
@@ -15,19 +16,8 @@ public class IPResponse {
         this.ip = ip;
     }
 
-    public ZonedDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(ZonedDateTime time) {
-        this.time = time;
-    }
-
     @Override
     public String toString() {
-        return "IPResponse{" +
-                "ip='" + ip + '\'' +
-                ", time=" + time +
-                '}';
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.DEFAULT_STYLE);
     }
 }

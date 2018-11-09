@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 @RestController
 public class IPController {
@@ -18,6 +16,7 @@ public class IPController {
 
     @RequestMapping(path = "/ip", method = RequestMethod.GET)
     public IPResponse getRequestIp(HttpServletRequest httpServletRequest) {
+        logger.info("getRequestIp");
         String ip = httpServletRequest.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = httpServletRequest.getHeader("Proxy-Client-IP");
@@ -30,7 +29,6 @@ public class IPController {
         }
         IPResponse ipResponse = new IPResponse();
         ipResponse.setIp(ip);
-        ipResponse.setTime(ZonedDateTime.now(ZoneId.of("UTC")));
         return ipResponse;
     }
 

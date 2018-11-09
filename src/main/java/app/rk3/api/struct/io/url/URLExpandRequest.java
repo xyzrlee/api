@@ -1,6 +1,10 @@
 package app.rk3.api.struct.io.url;
 
-public class URLExpandRequest {
+import app.rk3.api.struct.io.AbstractApiRequest;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+public class URLExpandRequest extends AbstractApiRequest {
     private String url;
 
     public String getUrl() {
@@ -13,8 +17,6 @@ public class URLExpandRequest {
 
     @Override
     public String toString() {
-        return "URLExpandRequest{" +
-                "url='" + url + '\'' +
-                '}';
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.DEFAULT_STYLE);
     }
 }
