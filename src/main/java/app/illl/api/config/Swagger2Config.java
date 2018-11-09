@@ -1,5 +1,6 @@
 package app.illl.api.config;
 
+import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -22,6 +23,7 @@ public class Swagger2Config {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("app.illl.api"))
                 .paths(PathSelectors.any())
+                .paths(Predicates.not(PathSelectors.regex("/")))
                 .build()
                 .useDefaultResponseMessages(false)
                 .pathProvider(new ExtendRelativePathProvider())
