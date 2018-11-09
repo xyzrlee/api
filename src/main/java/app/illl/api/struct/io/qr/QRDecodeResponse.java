@@ -1,6 +1,5 @@
 package app.illl.api.struct.io.qr;
 
-import app.illl.api.struct.io.ApiResponse;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

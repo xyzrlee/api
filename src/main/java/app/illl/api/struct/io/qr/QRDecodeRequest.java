@@ -1,6 +1,5 @@
 package app.illl.api.struct.io.qr;
 
-import app.illl.api.struct.io.ApiRequest;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.web.multipart.MultipartFile;
