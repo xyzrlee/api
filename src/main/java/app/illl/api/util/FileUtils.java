@@ -7,10 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class FileUtils {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
 
     private FileUtils() {
     }
@@ -37,6 +39,18 @@ public class FileUtils {
             throw new InternalServerErrorException();
         }
         return file;
+    }
+
+    public static void deleteWithoutException(File file) {
+        deleteWithoutException(file.toPath());
+    }
+
+    public static void deleteWithoutException(Path path) {
+        try {
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            LOGGER.error("file not deleted", e);
+        }
     }
 
 

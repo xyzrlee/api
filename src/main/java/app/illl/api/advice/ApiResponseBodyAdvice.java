@@ -17,8 +17,6 @@ import java.time.ZonedDateTime;
 @ControllerAdvice
 public class ApiResponseBodyAdvice implements ResponseBodyAdvice<AbstractApiResponse> {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
         if (methodParameter.getGenericParameterType() instanceof Class<?>) {

@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 @RestController
 public class QRController {
@@ -28,7 +30,7 @@ public class QRController {
         if (null == multipartFile) return null;
         File file = FileUtils.createTempFile(multipartFile, TEMP_FILE_PREFIX, TEMP_FILE_SUFFIX);
         Result result = QRCodeUtils.decode(file);
-        file.delete();
+        FileUtils.deleteWithoutException(file);
         QRDecodeResponse qrDecodeResponse = new QRDecodeResponse();
         qrDecodeResponse.setText(result.getText());
         return qrDecodeResponse;
