@@ -7,6 +7,7 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.paths.AbstractPathProvider;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -22,13 +23,31 @@ public class Swagger2Config {
                 .apis(RequestHandlerSelectors.basePackage("app.illl.api"))
                 .paths(PathSelectors.any())
                 .build()
-                .useDefaultResponseMessages(false);
+                .useDefaultResponseMessages(false)
+                .pathProvider(new ExtendRelativePathProvider())
+                ;
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("API")
                 .build();
+    }
+
+    private class ExtendRelativePathProvider extends AbstractPathProvider {
+
+        public static final String ROOT = "/";
+
+        @Override
+        protected String applicationPath() {
+            return ROOT;
+        }
+
+        @Override
+        protected String getDocumentationPath() {
+            return ROOT;
+        }
+
     }
 
 }
