@@ -4,9 +4,15 @@ language: java
 
 addons:
   sonarcloud:
-    organization: "sonarcloud_organization_key"
+    organization: "$SONAR_ORGANIZATION"
     token:
-      secure: s
+      secure: "$SONAR_TOKEN"
 
 script:
+- mvn install -Dmaven.test.skip=true
 - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+
+cache:
+  directories:
+  - '$HOME/.m2/repository'
+  - '$HOME/.sonar/cache'
