@@ -1,11 +1,11 @@
 package app.illl.api.struct.io.qr;
 
-import app.illl.api.struct.io.AbstractApiRequest;
+import app.illl.api.struct.io.ApiRequest;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.web.multipart.MultipartFile;
 
-public class QRDecodeRequest extends AbstractApiRequest {
+public class QRDecodeRequest {
     private MultipartFile file;
 
     public MultipartFile getFile() {

@@ -2,6 +2,8 @@ package app.illl.api.controller;
 
 import app.illl.api.exception.BadRequestException;
 import app.illl.api.exception.InternalServerErrorException;
+import app.illl.api.struct.io.ApiRequest;
+import app.illl.api.struct.io.ApiResponse;
 import app.illl.api.struct.io.url.URLExpandRequest;
 import app.illl.api.struct.io.url.URLExpandResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +14,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
@@ -21,8 +22,8 @@ import java.util.List;
 public class URLController {
 
     @PostMapping(path = "/url/expand")
-    public URLExpandResponse expand(URLExpandRequest urlExpandRequest, HttpServletRequest request) {
-        String shortenedUrl = urlExpandRequest.getUrl();
+    public ApiResponse<URLExpandResponse> expand(ApiRequest<URLExpandRequest> apiRequest) {
+        String shortenedUrl = apiRequest.getBody().getUrl();
         if (StringUtils.isBlank(shortenedUrl))
             throw new BadRequestException("[url] is expected.");
         if (!shortenedUrl.matches("^http[s]?://.*"))
@@ -44,7 +45,7 @@ public class URLController {
         }
         URLExpandResponse urlExpandResponse = new URLExpandResponse();
         urlExpandResponse.setUrl(url);
-        return urlExpandResponse;
+        return new ApiResponse<>(urlExpandResponse);
     }
 
 }

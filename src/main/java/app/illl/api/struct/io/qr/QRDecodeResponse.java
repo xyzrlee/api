@@ -1,10 +1,10 @@
 package app.illl.api.struct.io.qr;
 
-import app.illl.api.struct.io.AbstractApiResponse;
+import app.illl.api.struct.io.ApiResponse;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class QRDecodeResponse extends AbstractApiResponse {
+public class QRDecodeResponse {
     private String text;
 
     public String getText() {

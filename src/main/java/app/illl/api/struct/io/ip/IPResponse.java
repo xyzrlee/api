@@ -1,10 +1,10 @@
 package app.illl.api.struct.io.ip;
 
-import app.illl.api.struct.io.AbstractApiResponse;
+import app.illl.api.struct.io.ApiResponse;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class IPResponse extends AbstractApiResponse {
+public class IPResponse {
 
     private String ip;
 

@@ -1,6 +1,7 @@
 package app.illl.api.advice;
 
-import app.illl.api.struct.io.AbstractApiResponse;
+import app.illl.api.struct.io.ApiResponse;
+import app.illl.api.struct.io.ApiResponseHeader;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -9,25 +10,32 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @ControllerAdvice
-public class ApiResponseBodyAdvice implements ResponseBodyAdvice<AbstractApiResponse> {
+public class ApiResponseBodyAdvice implements ResponseBodyAdvice<ApiResponse> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        if (methodParameter.getGenericParameterType() instanceof Class<?>) {
-            Class<?> responseClass = (Class<?>) methodParameter.getGenericParameterType();
-            return AbstractApiResponse.class.isAssignableFrom(responseClass);
+        if (methodParameter.getGenericParameterType() instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) methodParameter.getGenericParameterType();
+            Type responseType = parameterizedType.getRawType();
+            if (responseType instanceof Class<?>)
+                return ApiResponse.class.isAssignableFrom((Class<?>) responseType);
         }
         return false;
     }
 
     @Override
-    public AbstractApiResponse beforeBodyWrite(AbstractApiResponse abstractApiResponse, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        abstractApiResponse.set_time(ZonedDateTime.now(ZoneId.of("UTC")));
-        return abstractApiResponse;
+    public ApiResponse beforeBodyWrite(ApiResponse apiResponse, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        if (null == apiResponse) return null;
+        if (null == apiResponse.getHeader()) apiResponse.setHeader(new ApiResponseHeader());
+        ApiResponseHeader header = apiResponse.getHeader();
+        header.setTime(ZonedDateTime.now(ZoneId.of("UTC")));
+        return apiResponse;
     }
 
 }
