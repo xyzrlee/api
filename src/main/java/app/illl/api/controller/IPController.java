@@ -1,6 +1,5 @@
 package app.illl.api.controller;
 
-import app.illl.api.struct.io.ApiResponse;
 import app.illl.api.struct.io.ip.IPResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +12,7 @@ public class IPController {
     private static final String IP_UNKNOWN = "unknown";
 
     @GetMapping(path = "/ip")
-    public ApiResponse<IPResponse> getRequestIp(HttpServletRequest httpServletRequest) {
+    public IPResponse getRequestIp(HttpServletRequest httpServletRequest) {
         String ip = httpServletRequest.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || IP_UNKNOWN.equalsIgnoreCase(ip)) {
             ip = httpServletRequest.getHeader("Proxy-Client-IP");
@@ -26,7 +25,7 @@ public class IPController {
         }
         IPResponse ipResponse = new IPResponse();
         ipResponse.setIp(ip);
-        return new ApiResponse<>(ipResponse);
+        return ipResponse;
     }
 
 }

@@ -1,9 +1,10 @@
 package app.illl.api.struct.io.ip;
 
+import app.illl.api.struct.io.ApiResponse;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class IPResponse {
+public class IPResponse extends ApiResponse {
 
     private String ip;
 
@@ -17,6 +18,6 @@ public class IPResponse {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.DEFAULT_STYLE);
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
     }
 }

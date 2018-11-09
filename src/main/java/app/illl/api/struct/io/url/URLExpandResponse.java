@@ -1,9 +1,10 @@
 package app.illl.api.struct.io.url;
 
+import app.illl.api.struct.io.ApiResponse;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class URLExpandResponse {
+public class URLExpandResponse extends ApiResponse {
     private String url;
 
     public String getUrl() {
@@ -16,6 +17,6 @@ public class URLExpandResponse {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.DEFAULT_STYLE);
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
     }
 }

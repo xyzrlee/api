@@ -2,8 +2,6 @@ package app.illl.api.controller;
 
 import app.illl.api.exception.BadRequestException;
 import app.illl.api.exception.InternalServerErrorException;
-import app.illl.api.struct.io.ApiRequest;
-import app.illl.api.struct.io.ApiResponse;
 import app.illl.api.struct.io.url.URLExpandRequest;
 import app.illl.api.struct.io.url.URLExpandResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -22,8 +20,8 @@ import java.util.List;
 public class URLController {
 
     @PostMapping(path = "/url/expand")
-    public ApiResponse<URLExpandResponse> expand(ApiRequest<URLExpandRequest> apiRequest) {
-        String shortenedUrl = apiRequest.getBody().getUrl();
+    public URLExpandResponse expand(URLExpandRequest urlExpandRequest) {
+        String shortenedUrl = urlExpandRequest.getUrl();
         if (StringUtils.isBlank(shortenedUrl))
             throw new BadRequestException("[url] is expected.");
         if (!shortenedUrl.matches("^http[s]?://.*"))
@@ -45,7 +43,7 @@ public class URLController {
         }
         URLExpandResponse urlExpandResponse = new URLExpandResponse();
         urlExpandResponse.setUrl(url);
-        return new ApiResponse<>(urlExpandResponse);
+        return urlExpandResponse;
     }
 
 }

@@ -10,8 +10,6 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
@@ -20,11 +18,9 @@ public class ApiResponseBodyAdvice implements ResponseBodyAdvice<ApiResponse> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        if (methodParameter.getGenericParameterType() instanceof ParameterizedType) {
-            ParameterizedType parameterizedType = (ParameterizedType) methodParameter.getGenericParameterType();
-            Type responseType = parameterizedType.getRawType();
-            if (responseType instanceof Class<?>)
-                return ApiResponse.class.isAssignableFrom((Class<?>) responseType);
+        if (methodParameter.getGenericParameterType() instanceof Class<?>) {
+            Class<?> responseClass = (Class<?>) methodParameter.getGenericParameterType();
+            return ApiResponse.class.isAssignableFrom((Class<?>) responseClass);
         }
         return false;
     }

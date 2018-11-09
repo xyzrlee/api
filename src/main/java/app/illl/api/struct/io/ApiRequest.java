@@ -1,18 +1,11 @@
 package app.illl.api.struct.io;
 
-public class ApiRequest<T> {
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+public class ApiRequest {
 
     private ApiRequestHeader header;
-    private T body;
-
-    public ApiRequest(ApiRequestHeader header, T body) {
-        this.setHeader(header);
-        this.setBody(body);
-    }
-
-    public ApiRequest(T body) {
-        this(null, body);
-    }
 
     public ApiRequestHeader getHeader() {
         return header;
@@ -22,11 +15,9 @@ public class ApiRequest<T> {
         this.header = header;
     }
 
-    public T getBody() {
-        return body;
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
     }
 
-    public void setBody(T body) {
-        this.body = body;
-    }
 }

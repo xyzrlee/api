@@ -1,9 +1,10 @@
 package app.illl.api.struct.io.qr;
 
+import app.illl.api.struct.io.ApiResponse;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class QRDecodeResponse {
+public class QRDecodeResponse extends ApiResponse {
     private String text;
 
     public String getText() {
@@ -16,6 +17,6 @@ public class QRDecodeResponse {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.DEFAULT_STYLE);
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
     }
 }

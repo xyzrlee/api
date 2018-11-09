@@ -1,7 +1,5 @@
 package app.illl.api.controller;
 
-import app.illl.api.struct.io.ApiRequest;
-import app.illl.api.struct.io.ApiResponse;
 import app.illl.api.struct.io.qr.QRDecodeRequest;
 import app.illl.api.struct.io.qr.QRDecodeResponse;
 import app.illl.api.util.FileUtils;
@@ -24,15 +22,16 @@ public class QRController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping("/qr/decode")
-    private ApiResponse<QRDecodeResponse> decode(ApiRequest<QRDecodeRequest> apiRequest) {
-        MultipartFile multipartFile = apiRequest.getBody().getFile();
+    private QRDecodeResponse decode(QRDecodeRequest qrDecodeRequest) {
+        logger.info("{}", qrDecodeRequest);
+        MultipartFile multipartFile = qrDecodeRequest.getFile();
         if (null == multipartFile) return null;
         File file = FileUtils.createTempFile(multipartFile, TEMP_FILE_PREFIX, TEMP_FILE_SUFFIX);
         Result result = QRCodeUtils.decode(file);
         FileUtils.deleteWithoutException(file);
         QRDecodeResponse qrDecodeResponse = new QRDecodeResponse();
         qrDecodeResponse.setText(result.getText());
-        return new ApiResponse<>(qrDecodeResponse);
+        return qrDecodeResponse;
     }
 
 }
