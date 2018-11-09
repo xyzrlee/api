@@ -1,2 +1,2 @@
 # API
-[![Build Status](https://travis-ci.com/xyzrlee/api.svg?branch=master)](https://travis-ci.com/xyzrlee/api)
+[![Build Status](https://travis-ci.com/xyzrlee/api.svg?branch=master)](https://travis-ci.com/xyzrlee/api) [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=app.illl%3Aapi&metric=alert_status)]
