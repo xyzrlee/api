@@ -1,7 +1,7 @@
 package app.illl.api.advice;
 
 import app.illl.api.struct.io.ApiResponse;
-import app.illl.api.struct.io.ApiResponseHeader;
+import app.illl.api.struct.io.ApiResponseCommons;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -28,8 +28,8 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<ApiResponse> {
     @Override
     public ApiResponse beforeBodyWrite(ApiResponse apiResponse, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         if (null == apiResponse) return null;
-        if (null == apiResponse.getHeader()) apiResponse.setHeader(new ApiResponseHeader());
-        ApiResponseHeader header = apiResponse.getHeader();
+        if (null == apiResponse.getCommons()) apiResponse.setCommons(new ApiResponseCommons());
+        ApiResponseCommons header = apiResponse.getCommons();
         header.setTime(ZonedDateTime.now(ZoneId.of("UTC")));
         return apiResponse;
     }

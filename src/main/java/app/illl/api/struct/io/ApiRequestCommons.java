@@ -3,19 +3,7 @@ package app.illl.api.struct.io;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.time.ZonedDateTime;
-
-public class ApiResponseHeader {
-
-    private ZonedDateTime time;
-
-    public final ZonedDateTime getTime() {
-        return time;
-    }
-
-    public final void setTime(ZonedDateTime time) {
-        this.time = time;
-    }
+public class ApiRequestCommons {
 
     @Override
     public String toString() {

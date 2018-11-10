@@ -5,14 +5,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class ApiResponse {
 
-    private ApiResponseHeader header;
+    private ApiResponseCommons commons;
 
-    public ApiResponseHeader getHeader() {
-        return header;
+    public ApiResponseCommons getCommons() {
+        return commons;
     }
 
-    public void setHeader(ApiResponseHeader header) {
-        this.header = header;
+    public void setCommons(ApiResponseCommons commons) {
+        this.commons = commons;
     }
 
     @Override
