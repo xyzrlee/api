@@ -1,10 +1,13 @@
 package app.illl.api.struct.io;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class ApiResponse {
+public abstract class ApiResponse {
 
+    @JsonProperty("_p")
     private ApiResponseCommons commons;
 
     public ApiResponseCommons getCommons() {

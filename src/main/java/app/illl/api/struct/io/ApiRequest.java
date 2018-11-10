@@ -1,10 +1,12 @@
 package app.illl.api.struct.io;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class ApiRequest {
+public abstract class ApiRequest {
 
+    @JsonProperty("_q")
     private ApiRequestCommons commons;
 
     public ApiRequestCommons getCommons() {
