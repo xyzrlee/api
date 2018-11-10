@@ -1,5 +1,6 @@
 package app.illl.api.controller;
 
+import app.illl.api.struct.io.dns.meta.RRType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,11 +26,31 @@ public class DNSTest {
     private MockMvc mvc;
 
     @Test
-    public void queryTest() throws Exception {
+    public void queryTestA() throws Exception {
         MvcResult mvcResult = this.mvc.perform(
                 MockMvcRequestBuilders.get("/dns")
                         .param("name", "apple.com")
-                        .param("type", "1"))
+                        .param("type", RRType.A.getValue().toString()))
+                .andReturn();
+        Assert.assertEquals(mvcResult.getResponse().getStatus(), HttpStatus.OK.value());
+    }
+
+    @Test
+    public void queryTestAAAA() throws Exception {
+        MvcResult mvcResult = this.mvc.perform(
+                MockMvcRequestBuilders.get("/dns")
+                        .param("name", "apple.com")
+                        .param("type", RRType.AAAA.getValue().toString()))
+                .andReturn();
+        Assert.assertEquals(mvcResult.getResponse().getStatus(), HttpStatus.OK.value());
+    }
+
+    @Test
+    public void queryTestNXDOMAIN() throws Exception {
+        MvcResult mvcResult = this.mvc.perform(
+                MockMvcRequestBuilders.get("/dns")
+                        .param("name", "aoiuwhbnoiwenoeirhbn")
+                        .param("type", RRType.A.getValue().toString()))
                 .andReturn();
         Assert.assertEquals(mvcResult.getResponse().getStatus(), HttpStatus.OK.value());
     }
