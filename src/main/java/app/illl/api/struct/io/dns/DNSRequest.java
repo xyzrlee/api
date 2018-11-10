@@ -33,7 +33,7 @@ public class DNSRequest extends ApiRequest {
                 return;
             }
         }
-        this.type = type.queryByName(name);
+        this.type = RRType.queryByName(name);
     }
 
 }
