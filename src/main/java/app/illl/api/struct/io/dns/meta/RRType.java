@@ -122,7 +122,7 @@ public enum RRType {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -130,7 +130,7 @@ public enum RRType {
         return value;
     }
 
-    public void setValue(Integer value) {
+    private void setValue(Integer value) {
         this.value = value;
     }
 
