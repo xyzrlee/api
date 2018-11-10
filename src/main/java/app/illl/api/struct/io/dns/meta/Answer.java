@@ -1,4 +1,4 @@
-package app.illl.api.struct.dns.section;
+package app.illl.api.struct.io.dns.meta;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,9 +7,9 @@ public class Answer {
     @JsonProperty("name")
     private String name;
     @JsonProperty("type")
-    private String type;
+    private RRType type;
     @JsonProperty("TTL")
-    private int ttl;
+    private Long ttl;
     @JsonProperty("data")
     private String data;
 
@@ -21,19 +21,19 @@ public class Answer {
         this.name = name;
     }
 
-    public String getType() {
+    public RRType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RRType type) {
         this.type = type;
     }
 
-    public int getTtl() {
+    public Long getTTL() {
         return ttl;
     }
 
-    public void setTtl(int ttl) {
+    public void setTTL(Long ttl) {
         this.ttl = ttl;
     }
 

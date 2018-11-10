@@ -1,9 +1,9 @@
 package app.illl.api.struct.io.dns;
 
-import app.illl.api.struct.dns.section.Additional;
-import app.illl.api.struct.dns.section.Answer;
-import app.illl.api.struct.dns.section.Question;
 import app.illl.api.struct.io.ApiResponse;
+import app.illl.api.struct.io.dns.meta.Additional;
+import app.illl.api.struct.io.dns.meta.Answer;
+import app.illl.api.struct.io.dns.meta.Question;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -11,17 +11,17 @@ import java.util.List;
 public class DNSResponse extends ApiResponse {
 
     @JsonProperty("Status")
-    private String status;
+    private Integer status;
     @JsonProperty("TC")
-    private boolean truncatedResponse;
+    private Boolean truncatedResponse;
     @JsonProperty("RD")
-    private boolean recursionDesired;
+    private Boolean recursionDesired;
     @JsonProperty("RA")
-    private boolean recursionAvailable;
+    private Boolean recursionAvailable;
     @JsonProperty("AD")
-    private boolean authenticData;
+    private Boolean authenticData;
     @JsonProperty("CD")
-    private boolean checkingDisabled;
+    private Boolean checkingDisabled;
     @JsonProperty("Question")
     private List<Question> questions;
     @JsonProperty("Answer")
@@ -29,51 +29,51 @@ public class DNSResponse extends ApiResponse {
     @JsonProperty("Additional")
     private List<Additional> additionals;
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public boolean isTruncatedResponse() {
+    public Boolean isTruncatedResponse() {
         return truncatedResponse;
     }
 
-    public void setTruncatedResponse(boolean truncatedResponse) {
+    public void setTruncatedResponse(Boolean truncatedResponse) {
         this.truncatedResponse = truncatedResponse;
     }
 
-    public boolean isRecursionDesired() {
+    public Boolean isRecursionDesired() {
         return recursionDesired;
     }
 
-    public void setRecursionDesired(boolean recursionDesired) {
+    public void setRecursionDesired(Boolean recursionDesired) {
         this.recursionDesired = recursionDesired;
     }
 
-    public boolean isRecursionAvailable() {
+    public Boolean isRecursionAvailable() {
         return recursionAvailable;
     }
 
-    public void setRecursionAvailable(boolean recursionAvailable) {
+    public void setRecursionAvailable(Boolean recursionAvailable) {
         this.recursionAvailable = recursionAvailable;
     }
 
-    public boolean isAuthenticData() {
+    public Boolean isAuthenticData() {
         return authenticData;
     }
 
-    public void setAuthenticData(boolean authenticData) {
+    public void setAuthenticData(Boolean authenticData) {
         this.authenticData = authenticData;
     }
 
-    public boolean isCheckingDisabled() {
+    public Boolean isCheckingDisabled() {
         return checkingDisabled;
     }
 
-    public void setCheckingDisabled(boolean checkingDisabled) {
+    public void setCheckingDisabled(Boolean checkingDisabled) {
         this.checkingDisabled = checkingDisabled;
     }
 
