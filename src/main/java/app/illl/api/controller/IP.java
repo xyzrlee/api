@@ -1,6 +1,7 @@
 package app.illl.api.controller;
 
 import app.illl.api.struct.io.ip.IPResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,19 +14,21 @@ public class IP {
 
     @GetMapping(path = "/ip")
     public IPResponse getRequestIp(HttpServletRequest httpServletRequest) {
-        String ip = httpServletRequest.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || IP_UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = httpServletRequest.getHeader("Proxy-Client-IP");
+        String ip = httpServletRequest.getHeader("X-Forwarded-For");
+        if (isValidIP(ip)) {
+            String[] ips = StringUtils.split(ip, ',');
+            ip = ips[0];
         }
-        if (ip == null || ip.length() == 0 || IP_UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = httpServletRequest.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || IP_UNKNOWN.equalsIgnoreCase(ip)) {
+        if (!isValidIP(ip)) {
             ip = httpServletRequest.getRemoteAddr();
         }
         IPResponse ipResponse = new IPResponse();
         ipResponse.setIp(ip);
         return ipResponse;
+    }
+
+    private boolean isValidIP(String ip) {
+        return ip != null && !StringUtils.isBlank(ip) && !StringUtils.equals(IP_UNKNOWN, ip);
     }
 
 }
