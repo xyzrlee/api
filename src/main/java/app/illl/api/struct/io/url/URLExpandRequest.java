@@ -4,7 +4,7 @@ import app.illl.api.struct.io.ApiRequest;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class URLExpandRequest extends ApiRequest {
+public class URLExpandRequest implements ApiRequest {
     private String url;
 
     public String getUrl() {

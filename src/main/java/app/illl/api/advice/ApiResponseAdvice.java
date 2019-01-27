@@ -1,7 +1,7 @@
 package app.illl.api.advice;
 
 import app.illl.api.struct.io.ApiResponse;
-import app.illl.api.struct.io.ApiResponseCommons;
+import app.illl.api.struct.io.Response;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -20,18 +20,25 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<ApiResponse> {
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
         if (methodParameter.getGenericParameterType() instanceof Class<?>) {
             Class<?> responseClass = (Class<?>) methodParameter.getGenericParameterType();
-            return ApiResponse.class.isAssignableFrom((Class<?>) responseClass);
+            return ApiResponse.class.isAssignableFrom(responseClass);
         }
         return false;
     }
 
     @Override
     public ApiResponse beforeBodyWrite(ApiResponse apiResponse, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if (null == apiResponse) return null;
-        if (null == apiResponse.getCommons()) apiResponse.setCommons(new ApiResponseCommons());
-        ApiResponseCommons header = apiResponse.getCommons();
-        header.setTime(ZonedDateTime.now(ZoneId.of("UTC")));
-        return apiResponse;
+        if (apiResponse instanceof Response) {
+            return setResponseVariables((Response) apiResponse);
+        }
+        Response<ApiResponse> response = setResponseVariables(new Response<>());
+        response.setData(apiResponse);
+        return response;
+    }
+
+    private Response setResponseVariables(Response response) {
+        response.setOk(true);
+        response.setTime(ZonedDateTime.now(ZoneId.of("UTC")));
+        return response;
     }
 
 }

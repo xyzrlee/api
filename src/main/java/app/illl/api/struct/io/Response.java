@@ -5,9 +5,19 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.time.ZonedDateTime;
 
-public class ApiResponseCommons {
+public class Response<T> implements ApiResponse {
 
+    private boolean ok;
     private ZonedDateTime time;
+    private T data;
+
+    public boolean isOk() {
+        return ok;
+    }
+
+    public void setOk(boolean ok) {
+        this.ok = ok;
+    }
 
     public final ZonedDateTime getTime() {
         return time;
@@ -15,6 +25,14 @@ public class ApiResponseCommons {
 
     public final void setTime(ZonedDateTime time) {
         this.time = time;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 
     @Override

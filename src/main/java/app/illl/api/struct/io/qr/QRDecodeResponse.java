@@ -4,7 +4,7 @@ import app.illl.api.struct.io.ApiResponse;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class QRDecodeResponse extends ApiResponse {
+public class QRDecodeResponse implements ApiResponse {
     private String text;
 
     public String getText() {
