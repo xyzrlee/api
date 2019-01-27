@@ -14,14 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 
 @RestController
-public class QRCode {
+public class QR {
 
     private static final String TEMP_FILE_PREFIX = "api-qr-";
     private static final String TEMP_FILE_SUFFIX = "";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @PostMapping("/qrcode/decode")
+    @PostMapping("/qr/decode")
     private QRDecodeResponse decode(QRDecodeRequest qrDecodeRequest) {
         logger.info("{}", qrDecodeRequest);
         MultipartFile multipartFile = qrDecodeRequest.getFile();
