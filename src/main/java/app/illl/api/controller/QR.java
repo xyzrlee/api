@@ -22,7 +22,7 @@ public class QR {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping("/qr/decode")
-    private QRDecodeResponse decode(QRDecodeRequest qrDecodeRequest) {
+    public QRDecodeResponse decode(QRDecodeRequest qrDecodeRequest) {
         logger.info("{}", qrDecodeRequest);
         MultipartFile multipartFile = qrDecodeRequest.getFile();
         if (null == multipartFile) return null;
