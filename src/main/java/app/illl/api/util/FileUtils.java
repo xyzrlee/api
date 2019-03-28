@@ -1,8 +1,7 @@
 package app.illl.api.util;
 
 import app.illl.api.exception.InternalServerErrorException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -10,9 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+@Slf4j
 public class FileUtils {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
 
     private FileUtils() {
     }
@@ -25,7 +23,7 @@ public class FileUtils {
         try {
             return File.createTempFile(prefix, suffix, directory);
         } catch (IOException e) {
-            LOGGER.error("", e);
+            log.error("", e);
             throw new InternalServerErrorException();
         }
     }
@@ -35,7 +33,7 @@ public class FileUtils {
         try {
             multipartFile.transferTo(file);
         } catch (IOException e) {
-            LOGGER.error("", e);
+            log.error("", e);
             throw new InternalServerErrorException();
         }
         return file;
@@ -49,7 +47,7 @@ public class FileUtils {
         try {
             Files.deleteIfExists(path);
         } catch (IOException e) {
-            LOGGER.error("file not deleted", e);
+            log.error("file not deleted", e);
         }
     }
 

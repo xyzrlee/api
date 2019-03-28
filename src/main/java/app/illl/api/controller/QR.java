@@ -5,6 +5,7 @@ import app.illl.api.struct.io.qr.QRDecodeResponse;
 import app.illl.api.util.FileUtils;
 import app.illl.api.util.QRCodeUtils;
 import com.google.zxing.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,17 +14,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 
+@Slf4j
 @RestController
 public class QR {
 
     private static final String TEMP_FILE_PREFIX = "api-qr-";
     private static final String TEMP_FILE_SUFFIX = "";
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @PostMapping("/qr/decode")
     public QRDecodeResponse decode(QRDecodeRequest qrDecodeRequest) {
-        logger.info("{}", qrDecodeRequest);
+        log.info("{}", qrDecodeRequest);
         MultipartFile multipartFile = qrDecodeRequest.getFile();
         if (null == multipartFile) return null;
         File file = FileUtils.createTempFile(multipartFile, TEMP_FILE_PREFIX, TEMP_FILE_SUFFIX);

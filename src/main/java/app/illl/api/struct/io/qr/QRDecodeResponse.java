@@ -1,22 +1,15 @@
 package app.illl.api.struct.io.qr;
 
 import app.illl.api.struct.io.ApiResponse;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 public class QRDecodeResponse implements ApiResponse {
+
+    @Getter
+    @Setter
     private String text;
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
-    }
 }
