@@ -67,7 +67,7 @@
     </dependencies>
 
     <properties>
-        <start-class>api.ApiApplication</start-class>
+        <start-class>app.illl.api.ApiApplication</start-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
