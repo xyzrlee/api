@@ -1,0 +1,8 @@
+version: '3'
+services:
+    api:
+        build:
+            context: .
+            args:
+                - MVNWARGS="-Dmaven.test.skip=true"
+        image: xyzrlee/api

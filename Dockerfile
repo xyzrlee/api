@@ -5,6 +5,10 @@
 FROM alpine
 LABEL maintainer="Ricky Li <cnrickylee@gmail.com>"
 
+USER root
+
+ARG MVNWARGS
+
 RUN set -ex \
  # Build environment setup
  && apk update \
@@ -13,11 +17,19 @@ RUN set -ex \
       maven \
       git \
  # Build & install
- && git clone git@github.com:xyzrlee/api.git /tmp/repo/api \
+ && git clone https://github.com/xyzrlee/api.git /tmp/repo/api \
  && cd /tmp/repo/api/api \
  && chmod +x mvnw \
- && ./mvnw clean package \
- && mkdir /api \
+ && ./mvnw clean package ${MVNWARGS}\
+ && mkdir -p /api \
  && cp target/api.jar /api/ \
  && ./mvnw clean \
- && apk del .build-deps
+ && rm -rf /tmp/repo/api \
+ && rm -rf ~/.m2 \
+ && apk del .build-deps \
+ && ls -l /api \
+ && apk add --no-cache openjdk8-jre
+
+COPY entrypoint.sh /api/entrypoint.sh
+
+ENTRYPOINT /api/entrypoint.sh
