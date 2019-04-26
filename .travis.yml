@@ -12,9 +12,10 @@ addons:
       secure: "$SONAR_TOKEN"
 
 script:
-- chmod +x ./api/mvnw
-- ./api/mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-- ./api/mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+- cd api
+- chmod +x mvnw
+- ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+- ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
 cache:
   directories:
