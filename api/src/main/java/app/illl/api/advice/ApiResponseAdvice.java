@@ -2,6 +2,7 @@ package app.illl.api.advice;
 
 import app.illl.api.struct.io.ApiResponse;
 import app.illl.api.struct.io.Response;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -17,7 +18,7 @@ import java.time.ZonedDateTime;
 public class ApiResponseAdvice implements ResponseBodyAdvice<ApiResponse> {
 
     @Override
-    public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
+    public boolean supports(MethodParameter methodParameter, @NotNull Class<? extends HttpMessageConverter<?>> aClass) {
         if (methodParameter.getGenericParameterType() instanceof Class<?>) {
             Class<?> responseClass = (Class<?>) methodParameter.getGenericParameterType();
             return ApiResponse.class.isAssignableFrom(responseClass);
@@ -26,10 +27,11 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<ApiResponse> {
     }
 
     @Override
-    public ApiResponse beforeBodyWrite(ApiResponse apiResponse, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+    public ApiResponse beforeBodyWrite(ApiResponse apiResponse, @NotNull MethodParameter methodParameter, @NotNull MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         if (apiResponse instanceof Response) {
             return setResponseVariables((Response) apiResponse);
         }
+        @SuppressWarnings("unchecked")
         Response<ApiResponse> response = setResponseVariables(new Response<>());
         response.setData(apiResponse);
         return response;
