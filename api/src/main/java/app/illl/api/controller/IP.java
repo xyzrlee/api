@@ -1,7 +1,10 @@
 package app.illl.api.controller;
 
-import app.illl.api.struct.io.ip.IPResponse;
+import app.illl.api.struct.io.ApiResponse;
 import com.google.common.net.HttpHeaders;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +21,7 @@ public class IP {
     @GetMapping(path = "/ip")
     public IPResponse getRequestIp(HttpServletRequest httpServletRequest) {
         String ip = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_FOR);
-        log.info("{}: {}", HttpHeaders.X_FORWARDED_FOR, ip);
+        log.debug("{}: {}", HttpHeaders.X_FORWARDED_FOR, ip);
         if (isValidIP(ip)) {
             String[] ips = StringUtils.split(ip, ',');
             ip = ips[0];
@@ -33,6 +36,13 @@ public class IP {
 
     private boolean isValidIP(String ip) {
         return ip != null && !StringUtils.isBlank(ip) && !StringUtils.equals(IP_UNKNOWN, ip);
+    }
+
+    @ToString
+    private static class IPResponse implements ApiResponse {
+        @Getter
+        @Setter
+        private String ip;
     }
 
 }

@@ -2,8 +2,11 @@ package app.illl.api.controller;
 
 import app.illl.api.exception.BadRequestException;
 import app.illl.api.exception.InternalServerErrorException;
-import app.illl.api.struct.io.url.URLExpandRequest;
-import app.illl.api.struct.io.url.URLExpandResponse;
+import app.illl.api.struct.io.ApiRequest;
+import app.illl.api.struct.io.ApiResponse;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -45,5 +48,20 @@ public class URL {
         urlExpandResponse.setUrl(url);
         return urlExpandResponse;
     }
+
+    @ToString
+    private static class URLExpandRequest implements ApiRequest {
+        @Getter
+        @Setter
+        private String url;
+    }
+
+    @ToString
+    private static class URLExpandResponse implements ApiResponse {
+        @Getter
+        @Setter
+        private String url;
+    }
+
 
 }

@@ -18,7 +18,7 @@ import java.time.ZonedDateTime;
 public class ApiResponseAdvice implements ResponseBodyAdvice<ApiResponse> {
 
     @Override
-    public boolean supports(MethodParameter methodParameter, @NotNull Class<? extends HttpMessageConverter<?>> aClass) {
+    public boolean supports(@NotNull MethodParameter methodParameter, @NotNull Class<? extends HttpMessageConverter<?>> aClass) {
         if (methodParameter.getGenericParameterType() instanceof Class<?>) {
             Class<?> responseClass = (Class<?>) methodParameter.getGenericParameterType();
             return ApiResponse.class.isAssignableFrom(responseClass);
@@ -27,7 +27,7 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<ApiResponse> {
     }
 
     @Override
-    public ApiResponse beforeBodyWrite(ApiResponse apiResponse, @NotNull MethodParameter methodParameter, @NotNull MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+    public ApiResponse beforeBodyWrite(ApiResponse apiResponse, @NotNull MethodParameter methodParameter, @NotNull MediaType mediaType, @NotNull Class<? extends HttpMessageConverter<?>> aClass, @NotNull ServerHttpRequest serverHttpRequest, @NotNull ServerHttpResponse serverHttpResponse) {
         if (apiResponse instanceof Response) {
             return setResponseVariables((Response) apiResponse);
         }
