@@ -6,3 +6,5 @@ services:
             args:
                 - MVNWARGS="-Dmaven.test.skip=true"
         image: xyzrlee/api
+        ports:
+            - 9999:8080/tcp

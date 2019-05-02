@@ -25,7 +25,7 @@ RUN set -ex \
  && cp target/api.jar /api/ \
  && ./mvnw clean \
  && rm -rf /tmp/repo/api \
- && rm -rf ~/.m2 \
+ && rm -rf ${HOME}/.m2 \
  && apk del .build-deps \
  && ls -l /api \
  && apk add --no-cache openjdk8-jre
