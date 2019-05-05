@@ -39,7 +39,7 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<ApiResponse> {
 
     private Response setResponseVariables(Response response) {
         response.setOk(true);
-        response.setTime(ZonedDateTime.now(ZoneId.of("UTC")));
+        response.setTimestamp(ZonedDateTime.now(ZoneId.of("UTC")));
         return response;
     }
 

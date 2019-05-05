@@ -14,7 +14,7 @@ public class Response<T> implements ApiResponse {
     private boolean ok;
     @Getter
     @Setter
-    private ZonedDateTime time;
+    private ZonedDateTime timestamp;
     @Getter
     @Setter
     private T data;
