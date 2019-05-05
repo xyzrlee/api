@@ -4,6 +4,7 @@ import app.illl.api.struct.io.ApiResponse;
 import app.illl.api.struct.io.Response;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -38,7 +39,7 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<ApiResponse> {
     }
 
     private Response setResponseVariables(Response response) {
-        response.setOk(true);
+        response.setStatus(HttpStatus.OK);
         response.setTimestamp(ZonedDateTime.now(ZoneId.of("UTC")));
         return response;
     }
