@@ -32,6 +32,7 @@ public class URL {
             shortenedUrl = "http://" + shortenedUrl;
         }
         String url = shortenedUrl;
+        int redirects = 0;
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             HttpClientContext httpClientContext = HttpClientContext.create();
             HttpGet httpGet = new HttpGet();
@@ -39,13 +40,15 @@ public class URL {
             httpClient.execute(httpGet, httpClientContext);
             List<URI> redirectList = httpClientContext.getRedirectLocations();
             if (!redirectList.isEmpty()) {
-                url = redirectList.get(redirectList.size() - 1).toString();
+                redirects = redirectList.size();
+                url = redirectList.get(redirects - 1).toString();
             }
         } catch (IOException e) {
             throw new InternalServerErrorException(e);
         }
         URLExpandResponse urlExpandResponse = new URLExpandResponse();
         urlExpandResponse.setUrl(url);
+        urlExpandResponse.setRedirects(redirects);
         return urlExpandResponse;
     }
 
@@ -61,6 +64,9 @@ public class URL {
         @Getter
         @Setter
         private String url;
+        @Getter
+        @Setter
+        private int redirects;
     }
 
 
