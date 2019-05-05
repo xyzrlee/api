@@ -8,3 +8,5 @@ services:
         image: xyzrlee/api
         ports:
             - 9999:8080/tcp
+        environment:
+            - JVMARGS=-Xmx512m

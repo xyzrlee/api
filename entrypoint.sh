@@ -2,4 +2,4 @@
 
 cd /api
 ls -lh
-java -jar api.jar
+java -jar api.jar $@

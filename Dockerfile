@@ -8,6 +8,7 @@ LABEL maintainer="Ricky Li <cnrickylee@gmail.com>"
 USER root
 
 ARG MVNWARGS
+ARG JVMARGS
 
 RUN set -ex \
  # Build environment setup
@@ -32,4 +33,4 @@ RUN set -ex \
 
 COPY entrypoint.sh /api/entrypoint.sh
 
-ENTRYPOINT /api/entrypoint.sh
+ENTRYPOINT /api/entrypoint.sh ${JVMARGS}
