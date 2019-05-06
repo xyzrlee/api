@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @SuppressWarnings("unused")
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-public class BadRequestException extends RuntimeException {
+public class BadRequestException extends ApiRuntimeException {
+
+    private static final long serialVersionUID = 8591949285254299363L;
 
     public BadRequestException() {
         super();

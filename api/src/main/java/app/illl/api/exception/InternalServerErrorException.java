@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @SuppressWarnings("unused")
 @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-public class InternalServerErrorException extends RuntimeException {
+public class InternalServerErrorException extends ApiRuntimeException {
+
+    private static final long serialVersionUID = 1686937411465688304L;
 
     public InternalServerErrorException() {
         super();
