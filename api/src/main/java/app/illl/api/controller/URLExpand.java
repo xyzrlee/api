@@ -45,7 +45,7 @@ public class URLExpand {
             throw new InternalServerErrorException(e);
         }
         List<URI> redirectList = httpClientContext.getRedirectLocations();
-        if (!redirectList.isEmpty()) {
+        if (null != redirectList && !redirectList.isEmpty()) {
             redirects = redirectList.size();
             url = redirectList.get(redirects - 1).toString();
         }
