@@ -17,7 +17,7 @@ public abstract class ApiRuntimeException extends RuntimeException {
     }
 
     public ApiRuntimeException(Throwable cause) {
-        super(cause);
+        super(cause.getMessage(), cause);
     }
 
     protected ApiRuntimeException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {

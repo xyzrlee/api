@@ -10,8 +10,14 @@ import org.springframework.http.HttpStatus;
 import java.time.ZonedDateTime;
 
 @ToString
-@JsonPropertyOrder({"timestamp", "status", "data"})
-public class Response<T> implements ApiResponse {
+@JsonPropertyOrder({
+        "timestamp",
+        "status",
+        "data"
+})
+public class PackedResponse<T> implements ApiResponse {
+
+    private static final int STATUS_UNKNOWN = 999;
 
     @Getter
     @Setter
@@ -25,7 +31,14 @@ public class Response<T> implements ApiResponse {
 
     @JsonGetter("status")
     private int getStatusCode() {
+        if (null == this.status) {
+            return STATUS_UNKNOWN;
+        }
         return this.status.value();
+    }
+
+    public void setStatusByCode(int statusCode) {
+        this.status = HttpStatus.resolve(statusCode);
     }
 
 }
