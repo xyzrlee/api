@@ -18,23 +18,23 @@ import java.time.ZonedDateTime;
 
 @Slf4j
 @ControllerAdvice
-public class ApiResponseAdvice implements ResponseBodyAdvice<ApiResponse> {
+public class ApiResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(@NotNull MethodParameter methodParameter, @NotNull Class<? extends HttpMessageConverter<?>> aClass) {
         if (methodParameter.getGenericParameterType() instanceof Class<?>) {
             Class<?> responseClass = (Class<?>) methodParameter.getGenericParameterType();
-            return ApiResponse.class.isAssignableFrom(responseClass) && !PackedResponse.class.isAssignableFrom(responseClass);
+            return ApiResponse.class.isAssignableFrom(responseClass);
         }
         return false;
     }
 
     @Override
-    public ApiResponse beforeBodyWrite(ApiResponse apiResponse, @NotNull MethodParameter methodParameter, @NotNull MediaType mediaType, @NotNull Class<? extends HttpMessageConverter<?>> aClass, @NotNull ServerHttpRequest serverHttpRequest, @NotNull ServerHttpResponse serverHttpResponse) {
-        PackedResponse<ApiResponse> packedResponse = new PackedResponse<>();
+    public Object beforeBodyWrite(Object object, @NotNull MethodParameter methodParameter, @NotNull MediaType mediaType, @NotNull Class<? extends HttpMessageConverter<?>> aClass, @NotNull ServerHttpRequest serverHttpRequest, @NotNull ServerHttpResponse serverHttpResponse) {
+        PackedResponse<Object> packedResponse = new PackedResponse<>();
         packedResponse.setStatus(HttpStatus.OK);
         packedResponse.setTimestamp(ZonedDateTime.now(ZoneId.of("UTC")));
-        packedResponse.setData(apiResponse);
+        packedResponse.setData(object);
         return packedResponse;
     }
 

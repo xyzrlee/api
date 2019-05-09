@@ -6,7 +6,6 @@ import app.illl.api.struct.io.ApiRequest;
 import app.illl.api.struct.io.ApiResponse;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NoHttpResponseException;
@@ -72,10 +71,8 @@ public class URLExpand {
             httpClient.execute(httpGet, httpClientContext);
         } catch (UnknownHostException e) {
             throw new BadRequestException("Unknown host: " + uri.getHost(), e);
-        } catch (ConnectTimeoutException | HttpHostConnectException e) {
+        } catch (ConnectTimeoutException | HttpHostConnectException | NoHttpResponseException e) {
             throw new InternalServerErrorException(e);
-        } catch (NoHttpResponseException e) {
-            throw new InternalServerErrorException("No response: " + uri.getHost(), e);
         } catch (IOException e) {
             log.error("", e);
             throw new InternalServerErrorException("Unexpected error", e);
@@ -91,7 +88,6 @@ public class URLExpand {
         return urlExpandResponse;
     }
 
-    @ToString
     private static class URLExpandRequest implements ApiRequest, Serializable {
         private static final long serialVersionUID = 1374156479699606525L;
         @Getter
@@ -99,7 +95,6 @@ public class URLExpand {
         private String url;
     }
 
-    @ToString
     private static class URLExpandResponse implements ApiResponse, Serializable {
         private static final long serialVersionUID = -9116713401881515869L;
         @Getter

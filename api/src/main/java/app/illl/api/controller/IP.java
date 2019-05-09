@@ -38,7 +38,6 @@ public class IP {
         return ip != null && !StringUtils.isBlank(ip) && !StringUtils.equals(IP_UNKNOWN, ip);
     }
 
-    @ToString
     private static class IPResponse implements ApiResponse {
         @Getter
         @Setter
