@@ -26,7 +26,7 @@ public class IPTest {
     @Test
     public void getRequestIp() throws Exception {
         this.mvc.perform(MockMvcRequestBuilders.get("/ip"))
-                .andDo(MockMvcResultHandlers.print())
+//                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.ip").value("127.0.0.1"))
@@ -39,7 +39,7 @@ public class IPTest {
                 MockMvcRequestBuilders.get("/ip")
                         .header(HttpHeaders.X_FORWARDED_FOR, "127.0.1.1", "127.0.1.2", "127.0.1.3")
         )
-                .andDo(MockMvcResultHandlers.print())
+//                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.ip").value("127.0.1.1"))

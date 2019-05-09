@@ -22,7 +22,7 @@ public class Generate204Test {
     @Test
     public void generate204() throws Exception {
         this.mvc.perform(MockMvcRequestBuilders.get("/generate_204"))
-                .andDo(MockMvcResultHandlers.print())
+//                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 
