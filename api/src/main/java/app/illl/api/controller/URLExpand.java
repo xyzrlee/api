@@ -7,42 +7,78 @@ import app.illl.api.struct.io.ApiResponse;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.NoHttpResponseException;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.web.util.UrlUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.UnknownHostException;
 import java.util.List;
 
 @RestController
+@Slf4j
 public class URLExpand {
 
+    private final RequestConfig defaultRequestConfig = RequestConfig.custom()
+            .setSocketTimeout(5000)
+            .setConnectTimeout(5000)
+            .setConnectionRequestTimeout(5000)
+            .build();
+
     @GetMapping(path = "/url/expand")
-    @Cacheable(value = "urlExpand", key = "#urlExpandRequest.getUrl()")
+    @Cacheable(
+            value = "urlExpand",
+            key = "#urlExpandRequest.getUrl()",
+            condition = "#urlExpandRequest.getUrl() != null"
+    )
     public URLExpandResponse urlExpand(URLExpandRequest urlExpandRequest) {
         String shortenedUrl = urlExpandRequest.getUrl();
         if (StringUtils.isBlank(shortenedUrl)) {
             throw new BadRequestException("[url] is expected.");
         }
-        if (!shortenedUrl.matches("^http[s]?://.*")) {
+        if (!UrlUtils.isAbsoluteUrl(shortenedUrl)) {
             shortenedUrl = "http://" + shortenedUrl;
         }
-        String url = shortenedUrl;
+        URI uri = URI.create(shortenedUrl);
+        String url;
+        try {
+            url = uri.toURL().toString();
+        } catch (MalformedURLException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         int redirects = 0;
         HttpClientContext httpClientContext = HttpClientContext.create();
-        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create()
+                .disableAutomaticRetries()
+                .setDefaultRequestConfig(defaultRequestConfig)
+                .build()
+        ) {
             HttpGet httpGet = new HttpGet();
             httpGet.setURI(URI.create(shortenedUrl));
             httpClient.execute(httpGet, httpClientContext);
-        } catch (IOException e) {
+        } catch (UnknownHostException e) {
+            throw new BadRequestException("Unknown host: " + uri.getHost(), e);
+        } catch (ConnectTimeoutException | HttpHostConnectException e) {
             throw new InternalServerErrorException(e);
+        } catch (NoHttpResponseException e) {
+            throw new InternalServerErrorException("No response: " + uri.getHost(), e);
+        } catch (IOException e) {
+            log.error("", e);
+            throw new InternalServerErrorException("Unexpected error", e);
         }
         List<URI> redirectList = httpClientContext.getRedirectLocations();
         if (null != redirectList && !redirectList.isEmpty()) {
