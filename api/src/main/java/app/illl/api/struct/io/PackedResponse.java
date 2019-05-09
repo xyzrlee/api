@@ -15,7 +15,7 @@ import java.time.ZonedDateTime;
         "status",
         "data"
 })
-public class PackedResponse<T> implements ApiResponse {
+public class PackedResponse<T> {
 
     private static final int STATUS_UNKNOWN = 999;
 

@@ -43,4 +43,44 @@ public class URLExpandTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.url").value("https://www.apple.com/"));
     }
 
+    @Test
+    public void urlExpandUnknownHost() throws Exception {
+        this.mvc.perform(
+                MockMvcRequestBuilders.get("/url/expand")
+                        .param("url", "asoinbe.bnoew")
+        )
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+//                .andDo(MockMvcResultHandlers.print())
+        ;
+    }
+
+    @Test
+    public void urlExpandConnectError() throws Exception {
+        this.mvc.perform(
+                MockMvcRequestBuilders.get("/url/expand")
+                        .param("url", "172.16.0.1")
+        )
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+        ;
+    }
+
+    @Test
+    public void urlExpandUrlUnset() throws Exception {
+        this.mvc.perform(
+                MockMvcRequestBuilders.get("/url/expand")
+        )
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        ;
+    }
+
+    @Test
+    public void urlExpandIllegalUrl() throws Exception {
+        this.mvc.perform(
+                MockMvcRequestBuilders.get("/url/expand")
+                        .param("url", "tcp://172.16.10.3")
+        )
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        ;
+    }
+
 }
