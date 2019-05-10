@@ -37,8 +37,4 @@ public class PackedResponse<T> {
         return this.status.value();
     }
 
-    public void setStatusByCode(int statusCode) {
-        this.status = HttpStatus.resolve(statusCode);
-    }
-
 }
