@@ -4,7 +4,6 @@ import app.illl.api.struct.io.ApiResponse;
 import com.google.common.net.HttpHeaders;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
