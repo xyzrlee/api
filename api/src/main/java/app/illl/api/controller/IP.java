@@ -21,12 +21,12 @@ public class IP {
     public IPResponse getRequestIp(HttpServletRequest httpServletRequest) {
         String ip = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_FOR);
         log.debug("{}: {}", HttpHeaders.X_FORWARDED_FOR, ip);
-        if (isValidIP(ip)) {
+        if (null != ip) {
             String[] ips = StringUtils.split(ip, ',');
-            ip = ips[0];
+            ip = ips[0].trim();
         }
         if (!isValidIP(ip)) {
-            ip = httpServletRequest.getRemoteAddr();
+            ip = httpServletRequest.getRemoteAddr().trim();
         }
         IPResponse ipResponse = new IPResponse();
         ipResponse.setIp(ip);
