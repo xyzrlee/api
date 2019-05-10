@@ -1,10 +1,12 @@
 package app.illl.api.advice;
 
+import app.illl.api.constant.AdviceOrder;
 import app.illl.api.struct.io.ApiResponse;
 import app.illl.api.struct.io.PackedResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -18,6 +20,7 @@ import java.time.ZonedDateTime;
 
 @Slf4j
 @ControllerAdvice
+@Order(AdviceOrder.API_RESPONSE_ADIVCE)
 public class ApiResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
