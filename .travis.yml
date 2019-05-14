@@ -5,18 +5,15 @@ language: java
 jdk:
 - openjdk8
 
-addons:
-  sonarcloud:
-    organization: "$SONAR_ORGANIZATION"
-    token:
-      secure: "$SONAR_TOKEN"
-
 script:
 - cd api
 - chmod +x mvnw
 - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-- ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
-
+- mvn sonar:sonar \
+  -Dsonar.projectKey=xyzrlee_api \
+  -Dsonar.organization=xyzrlee-github \
+  -Dsonar.host.url=https://sonarcloud.io \
+  -Dsonar.login=$SONAR_TOKEN
 cache:
   directories:
   - '$HOME/.m2/repository'
