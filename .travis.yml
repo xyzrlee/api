@@ -11,6 +11,7 @@ addons:
     token:
       secure: "$SONAR_TOKEN"
 
+
 script:
 - cd api
 - chmod +x mvnw
