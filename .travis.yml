@@ -9,7 +9,7 @@ script:
 - cd api
 - chmod +x mvnw
 - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-- mvn sonar:sonar \
+- ./mvnw sonar:sonar \
   -Dsonar.projectKey=xyzrlee_api \
   -Dsonar.organization=xyzrlee-github \
   -Dsonar.host.url=https://sonarcloud.io \
