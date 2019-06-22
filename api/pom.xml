@@ -53,6 +53,7 @@
         <java.version>1.8</java.version>
         <guava.version>28.0-jre</guava.version>
         <ehcache.version>3.7.1</ehcache.version>
+        <jetbrain.annotation.version>17.0.0</jetbrain.annotation.version>
     </properties>
 
     <dependencies>
@@ -98,7 +99,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
+            <version>${jetbrain.annotation.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
