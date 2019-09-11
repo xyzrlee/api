@@ -28,7 +28,7 @@
 
     <cache alias="urlExpand" uses-template="heap">
         <key-type>java.lang.String</key-type>
-        <value-type>app.illl.api.controller.URLExpand.URLExpandResponse</value-type>
+        <value-type>java.lang.Object</value-type>
         <expiry>
             <ttl unit="minutes">10</ttl>
         </expiry>
