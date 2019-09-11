@@ -16,6 +16,7 @@ RUN set -ex \
  && apk update \
  && apk add --no-cache --virtual .build-deps \
       openjdk8 \
+      git \
  # Build & install
  && git clone https://github.com/xyzrlee/api.git /tmp/repo/api \
  && cd /repo \
