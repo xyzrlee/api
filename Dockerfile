@@ -15,7 +15,7 @@ RUN set -ex \
  # Build environment setup
  && apk update \
  && apk add --no-cache --virtual .build-deps \
-      openjdk8 \
+      openjdk11 \
       git \
  # Build & install
  && git clone https://github.com/xyzrlee/api.git /tmp/repo/api \
@@ -28,7 +28,7 @@ RUN set -ex \
  && rm -rf ${HOME}/.m2 \
  && apk del .build-deps \
  && ls -l /api \
- && apk add --no-cache openjdk8-jre
+ && apk add --no-cache openjdk11-jre
 
 COPY entrypoint.sh /api/entrypoint.sh
 
