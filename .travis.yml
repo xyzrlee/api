@@ -12,6 +12,7 @@ addons:
       secure: "CWVkdpN3uxiPFub7NWcSvVt++qaLxHGX4JfidUQpfri0dmO3bY2nqU/tbGHNUeSAxI/29s8fRK1QC1dN1OuanKM9gHLvEGbvjqyw5jqW7ltHhxhzTnHMXzMD+BH4eBN/w7EOa71+tOnQviPvjs16bKhQ1u4KhL34h9bAqF3ugbrfDxYa4tzF0psMWUDMJ0sO0STThow6ZCNxTkMl7XCqHYElQ3rR5QXE6fbZkXGZjHPUxXZegqp40LukiJXNehzh6mTb1XG4mThH+xI4QsGjlENcKgIPSTepmWIPGiT+0aqt8ZJEoJAWEL8IMCwxL92HWkK2K9Yhrmnw7EPzO5P4XCLst6pLKxwbMeYJWUglcpNisyS+soXAq5dDLkQFmdJ1owol/Ho7CHey8+jIzPtZniPKzJ/TNMSxD3MaIyVkdiZGFbdaw7pIddIZYNrhMHlSjMb6dxhqyF7zcR7SbLDjoWIJgrqoj78lEPjDNv88sTmwrXCxNhWiQDIvIh9XPOVd6JEEs+jkOTbF5+Z7IBmPEckTfYjUq60n8Qvyeg34pmIehFJ2IrHqXFe1W/8bDC4KbF5Hy4TbMOGLebgbyRFtpGW7HrJs/NkEtJyxA5uVJ1bsrZQpIpyVJJa/2HrxJz0E3HoNnm3q3+sTMThEm4lizb+4PpThGZt4bMppQVB6i0c="
 
 script:
+- rm -f ${HOME}/.m2/settings.xml
 - cd api
 - chmod +x mvnw
 - ./mvnw install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true --batch-mode --show-version --no-transfer-progress
