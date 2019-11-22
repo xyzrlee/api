@@ -16,8 +16,8 @@ RUN set -ex \
  # Build environment setup
  && apk update \
  && apk add --no-cache --virtual .build-deps \
-      openjdk11 \
-      git \
+     openjdk11 \
+     git \
  # Build & install
  && git clone https://github.com/xyzrlee/api.git /tmp/repo/api \
  && cd /repo \
@@ -29,7 +29,9 @@ RUN set -ex \
  && rm -rf ${HOME}/.m2 \
  && apk del .build-deps \
  && ls -l ${BOOTDIR} \
- && apk add --no-cache openjdk11-jre sudo
+ && apk add --no-cache \
+     openjdk11-jre \
+     sudo
 
 COPY entrypoint.sh ${BOOTDIR}/entrypoint.sh
 
