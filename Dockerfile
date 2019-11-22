@@ -7,7 +7,8 @@ LABEL maintainer="Ricky Li <cnrickylee@gmail.com>"
 
 USER root
 
-ENV MVNWARGS="-Dmaven.test.skip=true -Dmaven.javadoc.skip=true --batch-mode --show-version --no-transfer-progress"
+ENV  MVNWARGS="-Dmaven.test.skip=true -Dmaven.javadoc.skip=true --batch-mode --show-version --no-transfer-progress" \
+     BOOTDIR="/api-boot"
 
 COPY api /repo
 
@@ -22,16 +23,16 @@ RUN set -ex \
  && cd /repo \
  && chmod +x mvnw \
  && ./mvnw clean package ${MVNWARGS}\
- && mkdir -p /api \
- && cp target/api.jar /api/ \
+ && mkdir -p ${BOOTDIR} \
+ && cp target/api.jar ${BOOTDIR}/ \
  && rm -rf /repo \
  && rm -rf ${HOME}/.m2 \
  && apk del .build-deps \
- && ls -l /api \
+ && ls -l ${BOOTDIR} \
  && apk add --no-cache openjdk11-jre
 
-COPY entrypoint.sh /api/entrypoint.sh
+COPY entrypoint.sh ${BOOTDIR}/entrypoint.sh
 
 ARG JVMARGS
 
-ENTRYPOINT /api/entrypoint.sh ${JVMARGS}
+ENTRYPOINT ${BOOTDIR}/entrypoint.sh ${JVMARGS}
