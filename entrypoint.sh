@@ -1,6 +1,6 @@
 #!/bin/sh
 
 echo "BOOTDIR=${BOOTDIR}"
-cd /api-boot
+cd ${BOOTDIR}
 ls -lh
 java $@ -jar api.jar
