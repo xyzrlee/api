@@ -1,6 +1,7 @@
 #!/bin/sh
 
 echo "BOOTDIR=${BOOTDIR}"
-cd ${BOOTDIR}
+echo "RUNDIR=${RUNDIR}"
+cd ${RUNDIR}
 ls -lh
-sudo -u ${RUNAS} java ${JVMARGS} -jar api.jar
+sudo -u ${RUNAS} java ${JVMARGS} -jar ${BOOTDIR}/api.jar

@@ -8,7 +8,8 @@ LABEL maintainer="Ricky Li <cnrickylee@gmail.com>"
 USER root
 
 ENV  MVNWARGS="-Dmaven.test.skip=true -Dmaven.javadoc.skip=true --batch-mode --show-version --no-transfer-progress" \
-     BOOTDIR="/api-boot"
+     BOOTDIR="/api-boot" \
+     RUNDIR="/api"
 
 COPY api /repo
 
@@ -23,7 +24,7 @@ RUN set -ex \
  && cd /repo \
  && chmod +x mvnw \
  && ./mvnw clean package ${MVNWARGS}\
- && mkdir -p ${BOOTDIR} \
+ && mkdir -p ${BOOTDIR} ${RUNDIR} \
  && cp target/api.jar ${BOOTDIR}/ \
  && rm -rf /repo \
  && rm -rf ${HOME}/.m2 \
