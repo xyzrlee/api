@@ -3,4 +3,4 @@
 echo "BOOTDIR=${BOOTDIR}"
 cd ${BOOTDIR}
 ls -lh
-java $@ -jar api.jar
+sudo -u ${RUNAS} java ${JVMARGS} -jar api.jar

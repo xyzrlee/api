@@ -29,10 +29,11 @@ RUN set -ex \
  && rm -rf ${HOME}/.m2 \
  && apk del .build-deps \
  && ls -l ${BOOTDIR} \
- && apk add --no-cache openjdk11-jre
+ && apk add --no-cache openjdk11-jre sudo
 
 COPY entrypoint.sh ${BOOTDIR}/entrypoint.sh
 
-ARG JVMARGS
+ARG JVMARGS=
+ARG RUNAS=root
 
-ENTRYPOINT ${BOOTDIR}/entrypoint.sh ${JVMARGS}
+ENTRYPOINT ${BOOTDIR}/entrypoint.sh
