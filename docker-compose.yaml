@@ -1,12 +1,10 @@
 version: '3'
 services:
-    api:
-        build:
-            context: .
-            args:
-                - MVNWARGS="-Dmaven.test.skip=true"
-        image: xyzrlee/api
-        ports:
-            - 9999:8080/tcp
-        environment:
-            - JVMARGS=-Xmx512m
+  api:
+    build:
+      context: .
+    image: xyzrlee/api
+    ports:
+      - 9999:8080/tcp
+    environment:
+      - JVMARGS=-Xmx512m
