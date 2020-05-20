@@ -37,6 +37,5 @@ RUN set -ex \
 COPY entrypoint.sh ${BOOTDIR}/entrypoint.sh
 
 ARG JVMARGS=
-ARG RUNAS=root
 
 ENTRYPOINT ${BOOTDIR}/entrypoint.sh
